@@ -3,10 +3,7 @@ import Header from '../../components/header/header';
 import LocationsList from '../../components/locations-list/locations-list';
 import Map from '../../components/map/map';
 import {nanoid} from 'nanoid';
-
-const locations: string[] = [
-  'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
-];
+import { locations } from '../../consts';
 
 type mainPageProps = {
   rentOffersCount: number;
