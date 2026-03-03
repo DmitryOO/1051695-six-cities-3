@@ -1,5 +1,12 @@
-import CitiesCard from '../../components/cities-card';
-import Header from '../../components/header';
+import CitiesCard from '../../components/cities-card/cities-card';
+import Header from '../../components/header/header';
+import LocationsList from '../../components/locations-list/locations-list';
+import Map from '../../components/map/map';
+import {nanoid} from 'nanoid';
+
+const locations: string[] = [
+  'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
+];
 
 type mainPageProps = {
   rentOffersCount: number;
@@ -7,46 +14,15 @@ type mainPageProps = {
 }
 
 function MainPage({ rentOffersCount, isSignedIn }: mainPageProps): JSX.Element {
+  const cards = new Array(rentOffersCount).fill(null);
+
   return (
     <div className="page page--gray page--main">
-      <Header isSignedIn = {isSignedIn}/>
+      <Header isSignedIn={isSignedIn} />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
+          {LocationsList(locations)}
         </div>
         <div className="cities">
           <div className="cities__places-container container">
@@ -80,15 +56,11 @@ function MainPage({ rentOffersCount, isSignedIn }: mainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CitiesCard />
-                <CitiesCard />
-                <CitiesCard />
-                <CitiesCard />
-                <CitiesCard />
+                {cards.map(() => <CitiesCard key = {nanoid()}/>)}
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map />
             </div>
           </div>
         </div>

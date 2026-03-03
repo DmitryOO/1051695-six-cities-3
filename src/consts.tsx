@@ -1,6 +1,7 @@
 const Settings = {
-  rentOffersCount:5,
+  rentOffersCount: 5,
   isSignedIn: true,
 };
 
-export{Settings};
+
+export { Settings };
