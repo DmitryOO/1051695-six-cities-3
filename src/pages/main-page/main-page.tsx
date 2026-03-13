@@ -3,7 +3,7 @@ import Header from '../../components/header/header';
 import LocationsList from '../../components/locations-list/locations-list';
 import Map from '../../components/map/map';
 import {nanoid} from 'nanoid';
-import { LOCATIONS } from '../../consts';
+import { locations } from '../../consts';
 
 type mainPageProps = {
   rentOffersCount: number;
@@ -19,7 +19,7 @@ function MainPage({ rentOffersCount, isSignedIn }: mainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          {LocationsList(LOCATIONS)}
+          {LocationsList(locations)}
         </div>
         <div className="cities">
           <div className="cities__places-container container">

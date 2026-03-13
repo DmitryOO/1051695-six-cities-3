@@ -3,8 +3,15 @@ const Settings = {
   isSignedIn: true,
 };
 
-const LOCATIONS = [
+const locations = [
   'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'
 ];
 
-export { Settings, LOCATIONS };
+const AppRoute = {
+  Main: '/',
+  Login: '/login',
+  Favorite: '/favorites',
+  Offer: '/offer/:id',
+} ;
+
+export { Settings, locations, AppRoute };
