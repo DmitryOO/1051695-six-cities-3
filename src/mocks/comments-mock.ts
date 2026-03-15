@@ -13,7 +13,7 @@ export const comments = [
   },
   {
     'id': 'b67ddfd5-b953-4a30-8c8d-b',
-    'date': '2018-03-08T14:13:56.569Z',
+    'date': '2007-02-08T14:13:56.569Z',
     'user': {
       'name': 'Conner',
       'avatarUrl': `https://picsum.photos/400?random${Math.random()}`,

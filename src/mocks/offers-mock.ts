@@ -23,7 +23,7 @@ export const offers: mainOfferType[] = [
     'isFavorite': false,
     'isPremium': true,
     'rating': 5,
-    'previewImage': `https://picsum.photos/400?random${Math.random()}`
+    'previewImage': `https://picsum.photos/400/300?random${Math.random()}`
   },
   {
     'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
@@ -31,7 +31,7 @@ export const offers: mainOfferType[] = [
     'type': 'hotel',
     'price': 820,
     'city': {
-      'name': CITIES[4],
+      'name': CITIES[1],
       'location': {
         'latitude': 42.35514938496378,
         'longitude': 44.673877537499948,
@@ -46,7 +46,7 @@ export const offers: mainOfferType[] = [
     'isFavorite': true,
     'isPremium': false,
     'rating': 2,
-    'previewImage': `https://picsum.photos/400?random${Math.random()}`
+    'previewImage': `https://picsum.photos/400/300?random${Math.random()}`
   },
   {
     'id': '6af6f711-c28d-4121-82-e0b462a27f00',
@@ -69,7 +69,7 @@ export const offers: mainOfferType[] = [
     'isFavorite': false,
     'isPremium': false,
     'rating': 4,
-    'previewImage': `https://picsum.photos/400?random${Math.random()}`
+    'previewImage': `https://picsum.photos/400/300?random${Math.random()}`
   },
   {
     'id': '6af6f711-c2-4121-82cd-e0b462a27f00',
@@ -92,7 +92,7 @@ export const offers: mainOfferType[] = [
     'isFavorite': true,
     'isPremium': true,
     'rating': 1,
-    'previewImage': `https://picsum.photos/400?random${Math.random()}`
+    'previewImage': `https://picsum.photos/400/300?random${Math.random()}`
   },
 ];
 

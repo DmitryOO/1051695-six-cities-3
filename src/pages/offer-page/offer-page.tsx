@@ -118,8 +118,6 @@ function OfferPage({ isSignedIn, offers, currentOffer, comments }: offerPageProp
                 <h2 className="reviews__title">
                   Reviews · <span className="reviews__amount">{comments.length}</span>
                 </h2>
-
-
                 <ul className="reviews__list">
                   {comments.map((comment) => (
                     <li key='null' className="reviews__item">
@@ -146,8 +144,8 @@ function OfferPage({ isSignedIn, offers, currentOffer, comments }: offerPageProp
                         <p className="reviews__text">
                           {comment.comment}
                         </p>
-                        <time className="reviews__time" dateTime="2019-04-24">
-                          {dayjs(comment.date).format('MMM YYYY')}
+                        <time className="reviews__time" dateTime={dayjs(comment.date).format('YYYY-MM-DD')}>
+                          {dayjs(comment.date).format('MMMM YYYY')}
                         </time>
                       </div>
                     </li>))}

@@ -1,6 +1,7 @@
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
-// import {useState} from 'react';
+import { useState, useEffect } from 'react';
 import CitiesCard from '../cities-card/cities-card';
+import { Nullable } from 'vitest';
 
 type offersListProps = {
   offers: mainOfferType[];
@@ -8,10 +9,25 @@ type offersListProps = {
 
 
 function OffersList({ offers }: offersListProps): JSX.Element {
-  // const [onHoverCard, setOnHoverCard] = useState({id:offers[0].id});
+  const [onHoverCard, setOnHoverCard] = useState<Nullable<mainOfferType>>(null);
+  const handleHover = (offer?: mainOfferType) => {
+    setOnHoverCard(offer || null);
+  };
+
+  useEffect(()=>{
+    console.log('component did update');
+  },[offers]);
+  useEffect(()=>{
+    console.warn(onHoverCard);
+
+    return ()=>{
+      console.log('compt will unmount');
+    };
+  },[]);
+
   return (
     <>
-      {offers.map((offer) => <CitiesCard key={offer.id} offer={offer} />)}
+      {offers.map((offer) => <CitiesCard handleHover={handleHover} key={offer.id} offer={offer} page="cities" />)}
     </>
   );
 }

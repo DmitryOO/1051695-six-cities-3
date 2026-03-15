@@ -23,7 +23,7 @@ function App(): JSX.Element {
           path={AppRoute.Favorite}
           element={
             <PrivateRoute authorizationStatus = {Settings.isSignedIn}>
-              <FavoritesPage isSignedIn = {Settings.isSignedIn}/>
+              <FavoritesPage isSignedIn = {Settings.isSignedIn} offers= {offers}/>
             </PrivateRoute>
           }
         />
