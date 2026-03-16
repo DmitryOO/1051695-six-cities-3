@@ -66,7 +66,7 @@ function CitiesCard({ offer, handleHover = () => {}, page = 'cities', imgWidth =
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`../offer/${offer.id}`}>
+          <Link to={`/${offer.id}`}>
             {title}
           </Link>
         </h2>

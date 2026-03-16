@@ -11,7 +11,7 @@ const AppRoute = {
   Main: '/',
   Login: '/login',
   Favorite: '/favorites',
-  Offer: '/offer/:id',
+  Offer: '/offer',
 } ;
 
 const ratings = [

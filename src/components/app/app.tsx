@@ -32,7 +32,7 @@ function App(): JSX.Element {
           element={<LoginPage isSignedIn={false} />}
         />
         <Route
-          path={AppRoute.Offer}
+          path={`${AppRoute.Offer}/:id`}
           element={<OfferPage isSignedIn={Settings.isSignedIn} offers={offers} currentOffer ={currentOffer} comments={comments}/>}
         />
         <Route
