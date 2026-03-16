@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 
-type headerProps = {isSignedIn:boolean}
+type headerProps = {
+  isSignedIn: boolean;
+  isLoginPage?: boolean;
+}
 
-function Header({isSignedIn}:headerProps): JSX.Element {
+function Header({ isSignedIn, isLoginPage = false }: headerProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -19,12 +22,13 @@ function Header({isSignedIn}:headerProps): JSX.Element {
               />
             </Link>
           </div>
-          {isSignedIn ?
-            (
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <Link to = {AppRoute.Login}
+          { isLoginPage ||
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                <li className="header__nav-item user">
+                  {isSignedIn &&
+                    <Link
+                      to={AppRoute.Login}
                       className="header__nav-link header__nav-link--profile"
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
@@ -32,20 +36,25 @@ function Header({isSignedIn}:headerProps): JSX.Element {
                         Oliver.conner@gmail.com
                       </span>
                       <span className="header__favorite-count">3</span>
-                    </Link>
-                  </li>
+                    </Link>}
+                  {!isSignedIn &&
+                    < Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                      </div>
+                      <span className="header__login">Sign in</span>
+                    </Link>}
+                </li>
+                {isSignedIn &&
                   <li className="header__nav-item">
                     <a className="header__nav-link" href="#">
                       <span className="header__signout">Sign out</span>
                     </a>
-                  </li>
-                </ul>
-              </nav>
-            ) : null}
-
+                  </li>}
+              </ul>
+            </nav>}
         </div>
       </div>
-    </header>
+    </header >
   );
 }
 

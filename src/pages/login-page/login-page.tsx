@@ -7,7 +7,7 @@ type loginPageProps = {
 function LoginPage({isSignedIn}:loginPageProps): JSX.Element {
   return (
     <div className="page page--gray page--login">
-      <Header isSignedIn={isSignedIn} />
+      <Header isSignedIn={isSignedIn} isLoginPage />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
