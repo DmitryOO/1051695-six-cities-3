@@ -1,5 +1,5 @@
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
-// import { AppRoute } from '../../consts';
+import { AppRoute } from '../../consts';
 import { Link } from 'react-router-dom';
 
 type citiesCardProps = {
@@ -29,7 +29,7 @@ function CitiesCard({ offer, handleHover = () => {}, page = 'cities', imgWidth =
           <span>Premium</span>
         </div>}
       <div className={`${page}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`../offer/${offer.id}`}>
+        <Link to={`..${AppRoute.Offer}/${offer.id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -66,7 +66,7 @@ function CitiesCard({ offer, handleHover = () => {}, page = 'cities', imgWidth =
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/${offer.id}`}>
+          <Link to={`..${AppRoute.Offer}/${offer.id}`}>
             {title}
           </Link>
         </h2>
