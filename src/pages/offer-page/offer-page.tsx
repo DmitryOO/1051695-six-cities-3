@@ -63,7 +63,7 @@ function OfferPage({ isSignedIn, offers, currentOffer, comments }: offerPageProp
                 </h1>
                 <button className={`offer__bookmark-button button ${isFavorite && 'offer__bookmark-button--active'}`} type="button">
                   <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark"/>
+                    <use xlinkHref="#icon-bookmark" />
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
@@ -78,10 +78,10 @@ function OfferPage({ isSignedIn, offers, currentOffer, comments }: offerPageProp
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">{type[0].toUpperCase() + type.slice(1)}</li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {bedrooms} {bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  Max {maxAdults} {maxAdults === 1 ? 'Adult' : 'Adults'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -163,7 +163,7 @@ function OfferPage({ isSignedIn, offers, currentOffer, comments }: offerPageProp
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers} isOfferPage/>
+              <OffersList offers={offers} isOfferPage />
             </div>
           </section>
         </div>
