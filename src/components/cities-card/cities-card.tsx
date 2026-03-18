@@ -1,7 +1,6 @@
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
-import { AppRoute } from '../../consts';
+import { AppRoute, CitiesCardClass } from '../../consts';
 import { Link } from 'react-router-dom';
-import { CitiesCardClass } from '../../consts';
 
 type citiesCardProps = {
   offer: mainOfferType;
@@ -12,7 +11,7 @@ type citiesCardProps = {
   infoClass?: string;
 }
 
-function CitiesCard({ offer, handleHover = () => {}, page = CitiesCardClass.CITIES, imgWidth = 260, imgHeight = 200, infoClass = '' }: citiesCardProps): JSX.Element {
+function CitiesCard({ offer, handleHover = () => { }, page = CitiesCardClass.CITIES, imgWidth = 260, imgHeight = 200, infoClass = '' }: citiesCardProps): JSX.Element {
   const { price, title, type, isPremium, isFavorite, previewImage, rating } = offer;
 
   const handleMouseOn = () => {
@@ -24,7 +23,7 @@ function CitiesCard({ offer, handleHover = () => {}, page = CitiesCardClass.CITI
 
 
   return (
-    <article className={`${page}__card place-card`} onMouseEnter={handleMouseOn} onMouseLeave={handleMouseOff }>
+    <article className={`${page}__card place-card`} onMouseEnter={handleMouseOn} onMouseLeave={handleMouseOff}>
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
