@@ -13,14 +13,14 @@ function OffersList({ offers, isOfferPage = false,handleHover }: offersListProps
   if (isOfferPage) {
     return (
       <>
-        {offers.slice(0, NEAR_PLACES_MAX_LENGTH).map((offer) => <CitiesCard handleHover={handleHover} key={offer.id} offer={offer} page="cities" />)}
+        {offers.slice(0, NEAR_PLACES_MAX_LENGTH).map((offer) => <CitiesCard handleHover={handleHover} key={offer.id} offer={offer} />)}
       </>
     );
   }
 
   return (
     <>
-      {offers.map((offer) => <CitiesCard handleHover={handleHover} key={offer.id} offer={offer} page="cities" />)}
+      {offers.map((offer) => <CitiesCard handleHover={handleHover} key={offer.id} offer={offer} />)}
     </>
   );
 }
