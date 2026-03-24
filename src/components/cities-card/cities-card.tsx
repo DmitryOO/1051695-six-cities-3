@@ -1,28 +1,52 @@
-function CitiesCard(): JSX.Element {
+import { mainOfferType } from '../../pages/main-page/main-offer-type';
+import { AppRoute, CitiesCardClass } from '../../consts';
+import { Link } from 'react-router-dom';
+
+type citiesCardProps = {
+  offer: mainOfferType;
+  handleHover?: (offer?: string) => void;
+  page?: string;
+  imgWidth?: number;
+  imgHeight?: number;
+  infoClass?: string;
+}
+
+function CitiesCard({ offer, handleHover = () => { }, page = CitiesCardClass.CITIES, imgWidth = 260, imgHeight = 200, infoClass = '' }: citiesCardProps): JSX.Element {
+  const { price, title, type, isPremium, isFavorite, previewImage, rating } = offer;
+
+  const handleMouseOn = () => {
+    handleHover(offer.id);
+  };
+  const handleMouseOff = () => {
+    handleHover();
+  };
+
+
   return (
-    <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+    <article className={`${page}__card place-card`} onMouseEnter={handleMouseOn} onMouseLeave={handleMouseOff}>
+      {isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
+      <div className={`${page}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`..${AppRoute.Offer}/${offer.id}`}>
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
-            width={260}
-            height={200}
+            src={previewImage}
+            width={imgWidth}
+            height={imgHeight}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${infoClass} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€120</b>
+            <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className="place-card__bookmark-button button"
+            className={`place-card__bookmark-button  button ${isFavorite && 'place-card__bookmark-button--active'}`}
             type="button"
           >
             <svg
@@ -37,16 +61,16 @@ function CitiesCard(): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: `${Math.round(rating) * 20}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
-            Beautiful &amp; luxurious apartment at great location
-          </a>
+          <Link to={`..${AppRoute.Offer}/${offer.id}`}>
+            {title}
+          </Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type[0].toUpperCase() + type.slice(1)}</p>
       </div>
     </article>
   );
