@@ -11,9 +11,9 @@ type CitiesContainer = {
 }
 
 function CitiesContainer({ rentOffersCount, offers }: CitiesContainer): JSX.Element {
-  const [onHoverCard, setOnHoverCard] = useState<Nullable<string>>(null);
+  const [selectedCardId, setSelectedCardId] = useState<Nullable<string>>(null);
   const handleHover = (offer?: string) => {
-    setOnHoverCard(offer || null);
+    setSelectedCardId(offer || null);
   };
 
   useEffect(() => {
@@ -63,7 +63,7 @@ function CitiesContainer({ rentOffersCount, offers }: CitiesContainer): JSX.Elem
           </div>
         </section>
         <div className="cities__right-section">
-          <Map className="cities__map map" />
+          <Map className="cities__map map" offers={offers} city={offers[0]} selectedCardId={selectedCardId} />
         </div>
       </div>
     </div>);

@@ -6,6 +6,7 @@ import { mainOfferType } from '../main-page/main-offer-type';
 import { currentOfferType } from './current-offer-type';
 import { commentsType } from './comments-type';
 import { useParams } from 'react-router-dom';
+import NotFoundPage from '../not-found-page/not-found-page';
 import dayjs from 'dayjs';
 
 type offerPageProps = {
@@ -15,8 +16,12 @@ type offerPageProps = {
   comments: commentsType;
 }
 
-function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPageProps): JSX.Element {
+function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPageProps){
   const { id: offerId = '' } = useParams();
+  const currentOffer = currentOffers.find((el) => (el.id === offerId));
+  if (!currentOffer) {
+    return <NotFoundPage />;
+  }
   const {
     // id,
     bedrooms,
@@ -33,7 +38,7 @@ function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPagePro
     rating,
     title,
     type
-  } = currentOffers.find((el) => (el.id === offerId)) || currentOffers[0];
+  } = currentOffer;
   return (
     <div className="page">
       <Header isSignedIn={isSignedIn} />
@@ -157,7 +162,7 @@ function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPagePro
               </section>
             </div>
           </div>
-          <Map className="offer__map map" />
+          <Map className="offer__map map" offers={offers} city={offers[0]}/>
         </section>
         <div className="container">
           <section className="near-places places">

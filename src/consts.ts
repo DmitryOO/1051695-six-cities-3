@@ -30,4 +30,9 @@ const CitiesCardClass = {
   FAVORITES: 'favorites'
 };
 
-export { Settings, cities, AppRoute, ratings, NEAR_PLACES_MAX_LENGTH,CitiesCardClass };
+const UrlMarker = {
+  Current:'../../img/pin-active.svg',
+  Default:'../../img/pin.svg',
+} as const;
+
+export { Settings, cities, AppRoute, ratings, NEAR_PLACES_MAX_LENGTH,CitiesCardClass,UrlMarker };
