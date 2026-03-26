@@ -27,8 +27,8 @@ function Map({ className, city, offers, selectedCardId }: MapType): JSX.Element 
 
   const currentCustomIcon = leaflet.icon({
     iconUrl: UrlMarker.Current,
-    iconSize: [28, 40],
-    iconAnchor: [14, 40],
+    iconSize: [27, 39],
+    iconAnchor: [13, 39],
   });
   const activeIcon = selectedCardId || offerId;
 

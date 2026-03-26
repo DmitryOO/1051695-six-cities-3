@@ -8,7 +8,7 @@ import { Settings, AppRoute } from '../../consts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import { offers } from '../../mocks/offers-mock';
-import { currentOffers } from '../../mocks/current-offer-mock';
+import { currentOffers } from '../../mocks/current-offer-mocks';
 import { comments } from '../../mocks/comments-mock';
 
 
