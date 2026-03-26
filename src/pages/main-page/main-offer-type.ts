@@ -20,5 +20,5 @@ export type mainOfferType = {
     'isFavorite': boolean;
     'isPremium': boolean;
     'rating': number;
-    'previewImage'?: string;
+    'previewImage': string;
   }

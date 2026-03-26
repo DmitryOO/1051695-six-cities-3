@@ -1,6 +1,6 @@
 
 import Map from '../../components/map/map';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { Nullable } from 'vitest';
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
 import OffersList from '../../components/offers-list/offers-list';
@@ -16,16 +16,6 @@ function CitiesContainer({ rentOffersCount, offers }: CitiesContainer): JSX.Elem
     setSelectedCardId(offer || null);
   };
 
-  useEffect(() => {
-    //   console.log('component did update');
-    // },[offers]);
-    // useEffect(()=>{
-    //   console.warn(onHoverCard);
-
-    //   return ()=>{
-    //     console.log('compt will unmount');
-    //   };
-  }, []);
   return (
     <div className="cities">
       <div className="cities__places-container container">
