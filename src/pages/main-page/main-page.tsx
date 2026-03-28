@@ -1,6 +1,5 @@
 import Header from '../../components/header/header';
 import LocationsList from '../../components/locations-list/locations-list';
-import { cities } from '../../consts';
 import { mainOfferType } from './main-offer-type';
 import CitiesContainer from '../../components/cities-container/cities-container';
 
@@ -16,7 +15,7 @@ function MainPage({ isSignedIn, offers }: mainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          {LocationsList(cities)}
+          <LocationsList />
         </div>
         <CitiesContainer offers={offers} />
       </main>
