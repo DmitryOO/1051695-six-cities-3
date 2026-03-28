@@ -9,7 +9,7 @@ function Reviews({ comments }: reviewsProps) {
       <h2 className="reviews__title">
         Reviews · <span className="reviews__amount">{comments.length}</span>
       </h2>
-      {comments.length &&
+      {!comments.length ||
         <ul className="reviews__list">
           {comments.map((comment) => (<Review comment={comment} key={comment.id} />))}
         </ul>}
