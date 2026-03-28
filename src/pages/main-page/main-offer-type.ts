@@ -1,6 +1,6 @@
 
 type apartmentType = 'apartment' | 'room' | 'house' | 'hotel';
-type locationType = {
+export type locationType = {
       'latitude': number;
       'longitude': number;
       'zoom': number;
@@ -20,5 +20,5 @@ export type mainOfferType = {
     'isFavorite': boolean;
     'isPremium': boolean;
     'rating': number;
-    'previewImage'?: string;
+    'previewImage': string;
   }

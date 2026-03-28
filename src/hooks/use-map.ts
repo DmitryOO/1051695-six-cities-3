@@ -1,23 +1,27 @@
 import { useEffect, useState, useRef } from 'react';
 import leaflet from 'leaflet';
-import { mainOfferType } from '../pages/main-page/main-offer-type';
+import { locationType } from '../pages/main-page/main-offer-type';
+import { Nullable } from 'vitest';
 type useMapType = {
   mapRef: React.MutableRefObject<null>;
-  city: mainOfferType;
+  city: {
+      'name': string;
+      'location': locationType;
+    };
 }
 
 function useMap({ mapRef, city }: useMapType) {
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState<Nullable<leaflet.Map>>(null);
   const isRenderedRef = useRef(false);
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: city.city.location.latitude,
-          lng: city.city.location.longitude,
+          lat: city.location.latitude,
+          lng: city.location.longitude,
         },
-        zoom: city.city.location.zoom,
+        zoom: city.location.zoom,
       });
 
       leaflet

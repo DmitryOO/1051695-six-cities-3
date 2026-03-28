@@ -1,37 +1,26 @@
 
 import Map from '../../components/map/map';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { Nullable } from 'vitest';
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
 import OffersList from '../../components/offers-list/offers-list';
 
 type CitiesContainer = {
-  rentOffersCount: number;
   offers: mainOfferType[];
 }
 
-function CitiesContainer({ rentOffersCount, offers }: CitiesContainer): JSX.Element {
+function CitiesContainer({ offers }: CitiesContainer): JSX.Element {
   const [selectedCardId, setSelectedCardId] = useState<Nullable<string>>(null);
   const handleHover = (offer?: string) => {
     setSelectedCardId(offer || null);
   };
 
-  useEffect(() => {
-    //   console.log('component did update');
-    // },[offers]);
-    // useEffect(()=>{
-    //   console.warn(onHoverCard);
-
-    //   return ()=>{
-    //     console.log('compt will unmount');
-    //   };
-  }, []);
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{rentOffersCount} places to stay in Amsterdam</b>
+          <b className="places__found">{offers.length} places to stay in Amsterdam</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -63,7 +52,7 @@ function CitiesContainer({ rentOffersCount, offers }: CitiesContainer): JSX.Elem
           </div>
         </section>
         <div className="cities__right-section">
-          <Map className="cities__map map" offers={offers} city={offers[0]} selectedCardId={selectedCardId} />
+          <Map className="cities__map map" offers={offers} selectedCardId={selectedCardId} />
         </div>
       </div>
     </div>);

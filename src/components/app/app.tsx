@@ -19,7 +19,7 @@ function App(): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage rentOffersCount={Settings.rentOffersCount} isSignedIn={Settings.isSignedIn} offers={offers} />}
+          element={<MainPage isSignedIn={Settings.isSignedIn} offers={offers} />}
         />
         <Route
           path={AppRoute.Favorite}

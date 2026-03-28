@@ -3,18 +3,18 @@ import { useParams } from 'react-router-dom';
 import leaflet from 'leaflet';
 import { UrlMarker } from '../../consts';
 import 'leaflet/dist/leaflet.css';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
 import { Nullable } from 'vitest';
 
 type MapType = {
   className: string;
   offers: mainOfferType[];
-  city: mainOfferType;
   selectedCardId?: Nullable<string>;
 }
 
-function Map({ className, city, offers, selectedCardId }: MapType): JSX.Element {
+function Map({ className, offers, selectedCardId }: MapType): JSX.Element {
+  const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
   const { id: offerId = '' } = useParams();

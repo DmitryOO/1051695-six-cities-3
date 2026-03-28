@@ -1,11 +1,10 @@
+import { cities } from '../../consts';
 
-
-function LocationsList(locations: string[]): JSX.Element {
-
+function LocationsList(): JSX.Element {
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {locations.map((el) => (
+        {cities.map((el) => (
           < li className="locations__item" key={el}>
             <a className="locations__item-link tabs__item" href="#">
               <span>{el}</span>
