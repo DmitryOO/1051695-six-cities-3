@@ -1,20 +1,21 @@
 import Header from '../../components/header/header';
 import LocationsList from '../../components/locations-list/locations-list';
-import { mainOfferType } from './main-offer-type';
 import CitiesContainer from '../../components/cities-container/cities-container';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { State } from '../../store';
 import { changeCity } from '../../store/action';
+import { mainOfferType } from './main-offer-type';
+// import { Nullable } from 'vitest';
 
 type mainPageProps = {
   isSignedIn: boolean;
   offers: mainOfferType[];
 }
 
-function MainPage({ isSignedIn, offers }: mainPageProps): JSX.Element {
+function MainPage({ isSignedIn,offers }: mainPageProps): JSX.Element {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state: State) => state.city);
-  const stateOffers = useAppSelector ((state:State)=> state.offers);
+  const cityOffers = offers?.filter((offer) => (offer.city.name === currentCity));
   return (
     <div className="page page--gray page--main">
       <Header isSignedIn={isSignedIn} />
@@ -23,7 +24,7 @@ function MainPage({ isSignedIn, offers }: mainPageProps): JSX.Element {
         <div className="tabs">
           <LocationsList currentCity={currentCity} onCityClick={(city) => dispatch(changeCity(city))} />
         </div>
-        {offers.length > 0 ? <CitiesContainer offers={stateOffers} currentCity={currentCity} /> : null}
+        {cityOffers.length > 0 ? <CitiesContainer offers={cityOffers} currentCity={currentCity} /> : null}
       </main>
     </div>
   );

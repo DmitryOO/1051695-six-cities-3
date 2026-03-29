@@ -5,7 +5,6 @@ import { offers } from '../mocks/offers-mock';
 import { mainOfferType } from '../pages/main-page/main-offer-type';
 import { Nullable } from 'vitest';
 
-
 type InitialStateType = {
   city: Nullable<string>;
   offers: mainOfferType[];
@@ -21,6 +20,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.city = action.payload;
     })
     .addCase(showOffers, (state, action) => {
-      state.city = action.payload;
+      state.offers = action.payload || [];
     });
 });

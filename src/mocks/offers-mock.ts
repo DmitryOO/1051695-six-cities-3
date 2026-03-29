@@ -102,14 +102,14 @@ export const offers: mainOfferType[] = [
     'city': {
       'name': cities[0],
       'location': {
-        'latitude': 52.3709553943508,
+        'latitude': 52.2909553943508,
         'longitude': 4.85309666406198,
         'zoom': 8
       }
     },
     'location': {
-      'latitude': 52.3909553943508,
-      'longitude': 4.85309666406198,
+      'latitude': 52.2909553943508,
+      'longitude': 4.84309666406198,
       'zoom': 8
     },
     'isFavorite': true,
@@ -131,7 +131,7 @@ export const offers: mainOfferType[] = [
       }
     },
     'location': {
-      'latitude': 52.4009553043508,
+      'latitude': 52.4109553043508,
       'longitude': 4.82309666406198,
       'zoom': 8
     },
@@ -154,7 +154,7 @@ export const offers: mainOfferType[] = [
       }
     },
     'location': {
-      'latitude': 52.3809553943508,
+      'latitude': 52.4409553943508,
       'longitude': 4.80309666406198,
       'zoom': 8
     },

@@ -7,19 +7,22 @@ import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { Settings, AppRoute } from '../../consts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
-import { offers } from '../../mocks/offers-mock';
+// import { offers } from '../../mocks/offers-mock';
 import { currentOffers } from '../../mocks/current-offer-mocks';
 import { comments } from '../../mocks/comments-mock';
+import { State } from '../../store';
+import { useAppSelector } from '../../hooks';
 
 
 function App(): JSX.Element {
+  const offers = useAppSelector((state: State) => state.offers);
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage isSignedIn={Settings.isSignedIn} offers={offers} />}
+          element={<MainPage isSignedIn={Settings.isSignedIn} offers = {offers}/>}
         />
         <Route
           path={AppRoute.Favorite}
