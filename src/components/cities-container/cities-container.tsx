@@ -7,9 +7,10 @@ import OffersList from '../../components/offers-list/offers-list';
 
 type CitiesContainer = {
   offers: mainOfferType[];
+  currentCity:Nullable<string>;
 }
 
-function CitiesContainer({ offers }: CitiesContainer): JSX.Element {
+function CitiesContainer({ offers, currentCity }: CitiesContainer): JSX.Element {
   const [selectedCardId, setSelectedCardId] = useState<Nullable<string>>(null);
   const handleHover = (offer?: string) => {
     setSelectedCardId(offer || null);
@@ -20,7 +21,7 @@ function CitiesContainer({ offers }: CitiesContainer): JSX.Element {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+          <b className="places__found">{offers.length} place{offers.length === 1 || 's' } to stay in {currentCity}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
