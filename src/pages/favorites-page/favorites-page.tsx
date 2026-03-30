@@ -39,7 +39,8 @@ function FavoritesPage({ isSignedIn, offers }: favoritePageProps): JSX.Element {
                     </div>
                   </li>))}
               </ul>
-            </section> : <FavoritesEmpty />}
+            </section>
+            : <FavoritesEmpty />}
         </div>
       </main>
       <Footer />

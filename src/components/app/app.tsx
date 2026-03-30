@@ -7,28 +7,34 @@ import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { Settings, AppRoute } from '../../consts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
-// import { offers } from '../../mocks/offers-mock';
+import { offers } from '../../mocks/offers-mock';
 import { currentOffers } from '../../mocks/current-offer-mocks';
 import { comments } from '../../mocks/comments-mock';
-import { State } from '../../store';
-import { useAppSelector } from '../../hooks';
+import { showOffers } from '../../store/action';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
 
 
 function App(): JSX.Element {
-  const offers = useAppSelector((state: State) => state.offers);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(showOffers(offers));
+  }, [dispatch]);
+  const stateOffers = useAppSelector((state) => state.offers);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage isSignedIn={Settings.isSignedIn} offers = {offers}/>}
+          element={<MainPage isSignedIn={Settings.isSignedIn} />}
         />
         <Route
           path={AppRoute.Favorite}
           element={
             <PrivateRoute authorizationStatus={Settings.isSignedIn}>
-              <FavoritesPage isSignedIn={Settings.isSignedIn} offers={offers} />
+              <FavoritesPage isSignedIn={Settings.isSignedIn} offers={stateOffers} />
             </PrivateRoute>
           }
         />
@@ -38,7 +44,7 @@ function App(): JSX.Element {
         />
         <Route
           path={`${AppRoute.Offer}/:id`}
-          element={<OfferPage isSignedIn={Settings.isSignedIn} offers={offers} currentOffers={currentOffers} comments={comments} />}
+          element={<OfferPage isSignedIn={Settings.isSignedIn} offers={stateOffers} currentOffers={currentOffers} comments={comments} />}
         />
         <Route
           path='*'
