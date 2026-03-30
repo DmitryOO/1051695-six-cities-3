@@ -3,10 +3,11 @@ import { AppRoute } from '../../consts';
 
 type headerProps = {
   isSignedIn: boolean;
+  favoriteOffersCount?:number;
   isLoginPage?: boolean;
 }
 
-function Header({ isSignedIn, isLoginPage = false }: headerProps): JSX.Element {
+function Header({ isSignedIn, isLoginPage = false, favoriteOffersCount }: headerProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -35,7 +36,7 @@ function Header({ isSignedIn, isLoginPage = false }: headerProps): JSX.Element {
                       <span className="header__user-name user__name">
                         Oliver.conner@gmail.com
                       </span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoriteOffersCount}</span>
                     </Link>}
                   {!isSignedIn &&
                     < Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>

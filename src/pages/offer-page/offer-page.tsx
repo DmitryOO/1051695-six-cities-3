@@ -24,7 +24,7 @@ function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPagePro
   if (!currentOffer) {
     return <NotFoundPage />;
   }
-
+  const favoriteOffersCount = offers.filter((offer) => (offer.isFavorite)).length;
   const nearOffers = offers.filter((el) => (el.id !== offerId)).slice(0, NEAR_PLACES_MAX_LENGTH);
   const {
     // id,
@@ -45,7 +45,7 @@ function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPagePro
   } = currentOffer;
   return (
     <div className="page">
-      <Header isSignedIn={isSignedIn} />
+      <Header isSignedIn={isSignedIn} favoriteOffersCount={favoriteOffersCount}/>
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">

@@ -18,8 +18,8 @@ export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
-    })
-    .addCase(showOffers, (state, action) => {
-      state.offers = action.payload || [];
     });
+  // .addCase(showOffers, (state, action) => {
+  //   state.offers = action.payload || [];
+  // });
 });
