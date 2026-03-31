@@ -11,7 +11,7 @@ const AppRoute = {
   Login: '/login',
   Favorite: '/favorites',
   Offer: '/offer',
-} ;
+};
 
 const ratings = [
   { value: 5, label: 'perfect' },
@@ -24,14 +24,29 @@ const ratings = [
 const NEAR_PLACES_MAX_LENGTH = 3;
 
 const CitiesCardClass = {
-  CITIES:'cities',
-  NEAR_PLACES:'near-places',
+  CITIES: 'cities',
+  NEAR_PLACES: 'near-places',
   FAVORITES: 'favorites'
 };
 
 const UrlMarker = {
-  Current:'../../img/pin-active.svg',
-  Default:'../../img/pin.svg',
+  Current: '../../img/pin-active.svg',
+  Default: '../../img/pin.svg',
 } as const;
 
-export { Settings, cities, AppRoute, ratings, NEAR_PLACES_MAX_LENGTH,CitiesCardClass,UrlMarker };
+const SORT_OPTIONS = [
+  'Popular',
+  'Price: low to high',
+  'Price: high to low',
+  'Top rated first'
+] satisfies Record<SortOption, string>;
+
+const enum SortOption {
+  Popular,
+  PriceLowToHigh,
+  PriceHighToLow,
+  TopRatedFirst
+}
+
+
+export { Settings, cities, AppRoute, ratings, NEAR_PLACES_MAX_LENGTH, CitiesCardClass, UrlMarker, SORT_OPTIONS, SortOption };

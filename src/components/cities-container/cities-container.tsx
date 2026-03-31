@@ -1,55 +1,47 @@
 
 import Map from '../../components/map/map';
-import { useState} from 'react';
+import { useState } from 'react';
 import { Nullable } from 'vitest';
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
 import OffersList from '../../components/offers-list/offers-list';
+import SortMenu from '../../components/sort-menu/sort-menu';
+import { SortOption } from '../../consts';
 
 type CitiesContainer = {
   offers: mainOfferType[];
-  currentCity:Nullable<string>;
+  currentCity: Nullable<string>;
 }
 
 function CitiesContainer({ offers, currentCity }: CitiesContainer): JSX.Element {
   const [selectedCardId, setSelectedCardId] = useState<Nullable<string>>(null);
   const handleHover = (offer?: string) => {
     setSelectedCardId(offer || null);
+
   };
+  const [activeSort, setActiveSort] = useState(SortOption.Popular);
+
+
+  let sortedOffers = offers;
+
+  if (activeSort === SortOption.PriceLowToHigh) {
+    sortedOffers = offers.toSorted((a: mainOfferType, b: mainOfferType) => a.price - b.price);
+  }
+  if (activeSort === SortOption.PriceHighToLow) {
+    sortedOffers = offers.toSorted((a: mainOfferType, b: mainOfferType) => b.price - a.price);
+  }
+  if (activeSort === SortOption.TopRatedFirst) {
+    sortedOffers = offers.toSorted((a: mainOfferType, b: mainOfferType) => b.rating - a.rating);
+  }
 
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} place{offers.length === 1 || 's' } to stay in {currentCity}</b>
-          <form className="places__sorting" action="#" method="get">
-            <span className="places__sorting-caption">Sort by</span>
-            <span className="places__sorting-type" tabIndex={0}>
-              Popular
-              <svg className="places__sorting-arrow" width={7} height={4}>
-                <use xlinkHref="#icon-arrow-select" />
-              </svg>
-            </span>
-            <ul className="places__options places__options--custom places__options--opened">
-              <li
-                className="places__option places__option--active"
-                tabIndex={0}
-              >
-                Popular
-              </li>
-              <li className="places__option" tabIndex={0}>
-                Price: low to high
-              </li>
-              <li className="places__option" tabIndex={0}>
-                Price: high to low
-              </li>
-              <li className="places__option" tabIndex={0}>
-                Top rated first
-              </li>
-            </ul>
-          </form>
+          <b className="places__found">{offers.length} place{offers.length === 1 || 's'} to stay in {currentCity}</b>
+          <SortMenu current={activeSort} setter={setActiveSort} />
           <div className="cities__places-list places__list tabs__content">
-            <OffersList offers={offers} handleHover = {handleHover}/>
+            <OffersList offers={sortedOffers} handleHover={handleHover} />
           </div>
         </section>
         <div className="cities__right-section">
