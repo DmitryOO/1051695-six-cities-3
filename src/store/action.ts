@@ -6,6 +6,7 @@ const showOffers = createAction<mainOfferType[]>('showOffers');
 const loadOffers = createAction<mainOfferType[]>('loadOffers');
 const requireAuthorization = createAction<string>('requireAuthorization');
 const setError = createAction<string | null>('setError');
+const setOffersDataLoadingStatus = createAction<boolean>('setOffersDataLoadingStatus');
 
-export { changeCity, showOffers, loadOffers, requireAuthorization, setError };
+export { changeCity, showOffers, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus };
 

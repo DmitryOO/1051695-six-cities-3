@@ -4,6 +4,7 @@ import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
+import Spinner from '../spinner/spinner';
 import { Settings, AppRoute, AuthorizationStatus } from '../../consts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
@@ -16,12 +17,17 @@ import { useEffect } from 'react';
 
 
 function App(): JSX.Element {
-  // const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   dispatch(showOffers(offers));
-  // }, [dispatch]);
+
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
   const stateOffers = useAppSelector((state) => state.offers);
   const stateAuthorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+
+  if (isOffersDataLoading === true) {
+    return (
+      <Spinner />
+    );
+  }
+
   return (
     <BrowserRouter>
       <ScrollToTop />

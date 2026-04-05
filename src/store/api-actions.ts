@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State, store } from '.';
 import { AxiosInstance } from 'axios';
-import { loadOffers, requireAuthorization, setError } from './action';
+import { loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
 import { APIRoute, AuthorizationStatus, TIMEOUT_ERROR } from '../consts';
 import { mainOfferType } from '../pages/main-page/main-offer-type';
 import { dropToken, saveToken } from '../services/token';
@@ -12,10 +12,10 @@ type AuthData = {
 }
 
 type UserData = {
-name: string;
-avatarUrl: string;
-isPro: string;
-token: string;
+  name: string;
+  avatarUrl: string;
+  isPro: string;
+  token: string;
 }
 
 const fetchOfferAction = createAsyncThunk<void, undefined, {
@@ -25,7 +25,9 @@ const fetchOfferAction = createAsyncThunk<void, undefined, {
 }>(
   'fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
+    dispatch(setOffersDataLoadingStatus(true));
     const { data } = await api.get<mainOfferType[]>(APIRoute.Offers);
+    dispatch(setOffersDataLoadingStatus(false));
     dispatch(loadOffers(data));
   }
 );
@@ -59,7 +61,7 @@ const loginAction = createAsyncThunk<void, AuthData, {
   }
 );
 
-const logoutAction = createAsyncThunk<void, AuthData, {
+const logoutAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -72,11 +74,22 @@ const logoutAction = createAsyncThunk<void, AuthData, {
   }
 );
 
-const clearErrorAction = createAsyncThunk (
+const clearErrorAction = createAsyncThunk(
   'clearError',
-  ()=> {
-    setTimeout (()=>store.dispatch(setError(null)), TIMEOUT_ERROR);
+  () => {
+    setTimeout(() => store.dispatch(setError(null)), TIMEOUT_ERROR);
   }
 );
+
+// const loadOfferAction = createAsyncThunk<void, string, {
+//   dispatch: AppDispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'loadOffer',
+//   async (_arg, { dispatch, extra: api }) => {
+//     const { data } = await api.get<mainOfferType[]>(APIRoute.Offers);
+//   }
+// );
 
 export { fetchOfferAction, checkAuthAction, loginAction, logoutAction, clearErrorAction };
