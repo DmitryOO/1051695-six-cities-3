@@ -1,11 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, showOffers, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
+import { changeCity, showOffers, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus, setUser } from './action';
 import { cities, AuthorizationStatus } from '../consts';
 // import { offers } from '../mocks/offers-mock';
 import { mainOfferType } from '../pages/main-page/main-offer-type';
 import { Nullable } from 'vitest';
+import { userData } from './api-actions';
 
 type InitialStateType = {
+  user: userData;
   city: Nullable<string>;
   offers: mainOfferType[];
   authorizationStatus: string;
@@ -13,6 +15,7 @@ type InitialStateType = {
   isOffersDataLoading: boolean;
 }
 const initialState: InitialStateType = {
+  user: {},
   city: cities[0],
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -39,5 +42,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload ;
     });
 });
