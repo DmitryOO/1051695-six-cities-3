@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import { AuthorizationStatus } from '../../consts';
+import { useAppSelector } from '../../hooks';
+import { State } from '../../store';
 
 type headerProps = {
   isSignedIn: string;
@@ -9,6 +11,7 @@ type headerProps = {
 }
 
 function Header({ isSignedIn, isLoginPage = false, favoriteOffersCount }: headerProps): JSX.Element {
+  const userEmail = useAppSelector((state:State)=>state.user.email) || '';
   return (
     <header className="header">
       <div className="container">
@@ -35,7 +38,7 @@ function Header({ isSignedIn, isLoginPage = false, favoriteOffersCount }: header
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {userEmail.charAt(0).toUpperCase() + userEmail.slice(1)}
                       </span>
                       <span className="header__favorite-count">{favoriteOffersCount}</span>
                     </Link>}
