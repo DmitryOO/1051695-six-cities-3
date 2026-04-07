@@ -2,7 +2,8 @@ import Header from '../../components/header/header';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { useState, ReactEventHandler } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../consts';
 type loginPageProps = {
   isSignedIn: string;
 }
@@ -18,7 +19,7 @@ function LoginPage({ isSignedIn }: loginPageProps): JSX.Element {
   const handlePasswordChange: changeHandlerType = (evt) => {
     setLoginData({ ...loginData, password: evt.currentTarget.value });
   };
-
+  const navigate = useNavigate();
   return (
     <div className="page page--gray page--login">
       <Header isSignedIn={isSignedIn} isLoginPage />
@@ -26,9 +27,10 @@ function LoginPage({ isSignedIn }: loginPageProps): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={(e) => {
+            <form className="login__form form" action="#" method="post" onSubmit={async (e) => {
               e.preventDefault();
-              dispatch(loginAction(loginData));
+              await dispatch(loginAction(loginData)).unwrap();
+              navigate(AppRoute.Main);
             }}
             >
               <div className="login__input-wrapper form__input-wrapper">
