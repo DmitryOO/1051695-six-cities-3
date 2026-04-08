@@ -1,18 +1,32 @@
 import Header from '../../components/header/header';
+import { loginAction } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
+import { useState, ReactEventHandler } from 'react';
+import { AuthorizationStatus } from '../../consts';
 
-type loginPageProps = {
-  isSignedIn: string;
-}
+type changeHandlerType = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
-function LoginPage({isSignedIn}:loginPageProps): JSX.Element {
+function LoginPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const handleEmailChange: changeHandlerType = (evt) => {
+    setLoginData({ ...loginData, email: evt.currentTarget.value });
+  };
+  const handlePasswordChange: changeHandlerType = (evt) => {
+    setLoginData({ ...loginData, password: evt.currentTarget.value });
+  };
   return (
     <div className="page page--gray page--login">
-      <Header isSignedIn={isSignedIn} isLoginPage />
+      <Header isSignedIn={AuthorizationStatus.NoAuth} isLoginPage />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post" onSubmit={(e) => {
+              e.preventDefault();
+              dispatch(loginAction(loginData));
+            }}
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -20,6 +34,8 @@ function LoginPage({isSignedIn}:loginPageProps): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  onChange={handleEmailChange}
+                  defaultValue={''}
                   required
                 />
               </div>
@@ -30,10 +46,12 @@ function LoginPage({isSignedIn}:loginPageProps): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  onChange={handlePasswordChange}
+                  defaultValue={''}
                   required
                 />
               </div>
-              <button className="login__submit form__submit button" type="submit">
+              <button className="login__submit form__submit button" type="submit" >
                 Sign in
               </button>
             </form>

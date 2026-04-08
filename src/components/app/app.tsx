@@ -5,22 +5,19 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import Spinner from '../spinner/spinner';
-import { Settings, AppRoute, AuthorizationStatus } from '../../consts';
+import { AppRoute} from '../../consts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
-// import { offers } from '../../mocks/offers-mock';
 import { currentOffers } from '../../mocks/current-offer-mocks';
 import { comments } from '../../mocks/comments-mock';
-import { showOffers } from '../../store/action';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import { useAppSelector } from '../../hooks';
 
 
 function App(): JSX.Element {
 
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
   const stateOffers = useAppSelector((state) => state.offers);
-  const stateAuthorizationStatus = useAppSelector((state)=> state.authorizationStatus);
+  const stateAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   if (isOffersDataLoading === true) {
     return (
@@ -46,7 +43,11 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Login}
-          element={<LoginPage isSignedIn={stateAuthorizationStatus} />}
+          element={
+            <PrivateRoute authorizationStatus={stateAuthorizationStatus} isLoginPage>
+              <LoginPage />
+            </PrivateRoute>
+          }
         />
         <Route
           path={`${AppRoute.Offer}/:id`}
