@@ -7,6 +7,7 @@ import { mainOfferType } from '../pages/main-page/main-offer-type';
 import { dropToken, saveToken } from '../services/token';
 import { currentOfferType } from '../pages/offer-page/current-offer-type';
 import { commentsType } from '../pages/offer-page/comments-type';
+import { reviewType } from '../pages/offer-page/comments-type';
 
 type authData = {
   email: string;
@@ -126,6 +127,19 @@ const fetchComments = createAsyncThunk<void, string, {
   }
 );
 
+const postReviewAction = createAsyncThunk<void, reviewType & { id: string }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'postReview',
+  async ({ comment, rating, id }, { dispatch, extra: api }) => {
+    await api.post<reviewType & { id: string }>(`${APIRoute.Comments}/${id}`, { comment, rating });
+    dispatch(fetchComments(id));
+  }
+
+);
+
 // const loadOfferAction = createAsyncThunk<void, string, {
 //   dispatch: AppDispatch;
 //   state: State;
@@ -137,4 +151,4 @@ const fetchComments = createAsyncThunk<void, string, {
 //   }
 // );
 
-export { fetchOffersAction, checkAuthAction, loginAction, logoutAction, clearErrorAction, fetchNearbyOffersAction, fetchCurrentOfferAction, fetchComments };
+export { fetchOffersAction, checkAuthAction, loginAction, logoutAction, clearErrorAction, fetchNearbyOffersAction, fetchCurrentOfferAction, fetchComments, postReviewAction };

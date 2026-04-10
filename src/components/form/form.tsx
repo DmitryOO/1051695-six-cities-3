@@ -1,21 +1,39 @@
 import { useState, ReactEventHandler, Fragment } from 'react';
 import { ratings } from '../../consts';
+import { FormEvent } from 'react';
+import { postReviewAction } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
+import { useParams } from 'react-router-dom';
 
 type changeHandlerType = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
 function Form(): JSX.Element {
 
-  const [review, setReview] = useState({ review: '', rating: 0 });
+  const [review, setReview] = useState({ comment: '', rating: 0 });
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useAppDispatch();
 
   const handleTextAreaChange: changeHandlerType = (evt) => {
-    setReview({ ...review, review:evt.currentTarget.value});
+    setReview({ ...review, comment: evt.currentTarget.value });
   };
   const handleInputChange: changeHandlerType = (evt) => {
-    setReview({ ...review, rating:Number (evt.currentTarget.value)});
+    setReview({ ...review, rating: Number(evt.currentTarget.value) });
   };
-
+  const handleSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    if (id) {
+      dispatch(postReviewAction({ ...review, id }))
+        .unwrap()
+        .then(() => {
+          setReview({ comment: '', rating: 0 });
+        });
+      // .catch(() => {
+      // });
+    }
+  };
+  // console.log(handleSubmit);
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -28,6 +46,7 @@ function Form(): JSX.Element {
               name="rating"
               defaultValue={el.value}
               id={`${el.value}-stars`}
+              checked={review.rating === el.value}
               type="radio"
               onChange={handleInputChange}
             />
@@ -48,7 +67,7 @@ function Form(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
+        value={review.comment}
         onChange={handleTextAreaChange}
       />
       <div className="reviews__button-wrapper">
@@ -61,7 +80,7 @@ function Form(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.rating === 0 || review.review.length < 50}
+          disabled={review.rating === 0 || review.comment.length < 50}
         >
           Submit
         </button>
