@@ -5,14 +5,13 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import Spinner from '../spinner/spinner';
-import { AppRoute} from '../../consts';
+import { AppRoute } from '../../consts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 
 
 function App(): JSX.Element {
-
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
   const stateOffers = useAppSelector((state) => state.offers);
   const stateAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);

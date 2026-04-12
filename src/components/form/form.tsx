@@ -31,7 +31,6 @@ function Form(): JSX.Element {
       // });
     }
   };
-  // console.log(handleSubmit);
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">

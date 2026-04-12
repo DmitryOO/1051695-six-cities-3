@@ -11,6 +11,7 @@ import { NEAR_PLACES_MAX_LENGTH } from '../../consts';
 import { CitiesCardClass, AuthorizationStatus } from '../../consts';
 import { fetchNearbyOffersAction, fetchCurrentOfferAction, fetchComments } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import Spinner from '../../components/spinner/spinner';
 
 type offerPageProps = {
   isSignedIn: string;
@@ -20,17 +21,24 @@ type offerPageProps = {
 function OfferPage({ isSignedIn, offers }: offerPageProps) {
   const { id: offerId = '' } = useParams();
   const dispatch = useAppDispatch();
+  const currentOffer = useAppSelector((state) => state.currentOffer);
   useEffect(() => {
-    dispatch(fetchNearbyOffersAction(offerId));
-    dispatch(fetchCurrentOfferAction(offerId));
-    dispatch(fetchComments(offerId));
-  }, [offerId, dispatch]);
+    if (offerId && currentOffer?.id !== offerId) {
+      dispatch(fetchCurrentOfferAction(offerId));
+      dispatch(fetchNearbyOffersAction(offerId));
+      dispatch(fetchComments(offerId));
+    }
+  }, [offerId, dispatch, currentOffer?.id]);
 
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, NEAR_PLACES_MAX_LENGTH);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
+
   const comments = useAppSelector((state) => state.comments);
+  const isLoading = useAppSelector((state) => state.isLoading);
 
   const favoriteOffersCount = offers.filter((offer) => (offer.isFavorite)).length;
+  if (isLoading) {
+    return <Spinner />; // Пока идет загрузка, не показываем 404
+  }
   if (!currentOffer) {
     return <NotFoundPage />;
   }
