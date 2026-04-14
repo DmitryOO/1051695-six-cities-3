@@ -4,11 +4,15 @@ import { FormEvent } from 'react';
 import { postReviewAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router-dom';
-
+import { setError } from '../../store/offer-slice/offer-slice';
+import { clearErrorAction } from '../../store/api-actions';
+import { State } from '../../store';
+import { useAppSelector } from '../../hooks';
 type changeHandlerType = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
 function Form(): JSX.Element {
-
+  const error = useAppSelector((state: State) => state.error);
+  const isSending = useAppSelector((state: State) => state.isSending);
   const [review, setReview] = useState({ comment: '', rating: 0 });
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
@@ -19,6 +23,7 @@ function Form(): JSX.Element {
   const handleInputChange: changeHandlerType = (evt) => {
     setReview({ ...review, rating: Number(evt.currentTarget.value) });
   };
+
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
     if (id) {
@@ -26,9 +31,11 @@ function Form(): JSX.Element {
         .unwrap()
         .then(() => {
           setReview({ comment: '', rating: 0 });
+        })
+        .catch((err: { message: string }) => {
+          dispatch(setError(err.message || 'error'));
+          dispatch(clearErrorAction());
         });
-      // .catch(() => {
-      // });
     }
   };
   return (
@@ -43,11 +50,12 @@ function Form(): JSX.Element {
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              defaultValue={el.value}
+              value={el.value}
               id={`${el.value}-stars`}
               checked={review.rating === el.value}
               type="radio"
               onChange={handleInputChange}
+              disabled = {isSending}
             />
             <label
               htmlFor={`${el.value}-stars`}
@@ -68,6 +76,7 @@ function Form(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review.comment}
         onChange={handleTextAreaChange}
+        disabled = {isSending}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -79,10 +88,16 @@ function Form(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.rating === 0 || review.comment.length < 50 || review.comment.length > 300}
-        >
-          Submit
+          disabled={
+            review.rating === 0 ||
+            review.comment.length < 50 ||
+            review.comment.length > 300 ||
+            Boolean(error) ||
+            isSending
+          }
+        > {isSending ? 'Loading' : 'Submit'}
         </button>
+        {error ? error : ''}
       </div>
     </form>);
 }

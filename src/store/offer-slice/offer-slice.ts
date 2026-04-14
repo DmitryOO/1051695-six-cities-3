@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchComments, fetchOffersAction, checkAuthAction, loginAction, logoutAction } from '../api-actions';
+import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchComments, fetchOffersAction, checkAuthAction, loginAction, logoutAction, postReviewAction } from '../api-actions';
 import { cities, AuthorizationStatus } from '../../consts';
 import { currentOfferType } from '../../pages/offer-page/current-offer-type';
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
@@ -13,6 +13,7 @@ type InitialStateType = {
   offers: mainOfferType[];
   authorizationStatus: string;
   error: string | null;
+  isSending: boolean;
   isLoading: boolean;
   isOffersDataLoading: boolean;
   nearbyOffers: mainOfferType[];
@@ -27,7 +28,7 @@ const initialState: InitialStateType = {
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isLoading: false,
-
+  isSending: false,
   isOffersDataLoading: false,
   nearbyOffers: [],
   currentOffer: null,
@@ -70,6 +71,17 @@ export const offersSlice = createSlice({
         state.offers = action.payload;
         state.isOffersDataLoading = false;
       })
+
+      .addCase(postReviewAction.pending, (state) => {
+        state.isSending = true;
+      })
+      .addCase(postReviewAction.fulfilled, (state) => {
+        state.isSending = false;
+      })
+      .addCase(postReviewAction.rejected, (state) => {
+        state.isSending = false;
+      })
+
       .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.user = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
