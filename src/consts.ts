@@ -1,3 +1,4 @@
+
 const Settings = {
   isSignedIn: true,
 };
@@ -58,7 +59,8 @@ const enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
-  Favorite = '/favorites'
+  Favorite = '/favorites',
+  Comments = '/comments'
 }
 
 const TIMEOUT_ERROR = 2000;

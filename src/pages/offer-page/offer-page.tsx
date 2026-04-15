@@ -4,28 +4,44 @@ import Map from '../../components/map/map';
 import Form from '../../components/form/form';
 import Reviews from '../../components/reviews/reviews';
 import { mainOfferType } from '../main-page/main-offer-type';
-import { currentOfferType } from './current-offer-type';
-import { commentType } from '../../components/review/review';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { NEAR_PLACES_MAX_LENGTH } from '../../consts';
 import { CitiesCardClass, AuthorizationStatus } from '../../consts';
+import { fetchNearbyOffersAction, fetchCurrentOfferAction, fetchComments } from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import Spinner from '../../components/spinner/spinner';
 
 type offerPageProps = {
   isSignedIn: string;
   offers: mainOfferType[];
-  currentOffers: currentOfferType[];
-  comments: commentType[];
 }
 
-function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPageProps) {
+function OfferPage({ isSignedIn, offers }: offerPageProps) {
   const { id: offerId = '' } = useParams();
-  const currentOffer = currentOffers.find((el) => (el.id === offerId));
+  const dispatch = useAppDispatch();
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  useEffect(() => {
+    if (offerId && currentOffer?.id !== offerId) {
+      dispatch(fetchCurrentOfferAction(offerId));
+      dispatch(fetchNearbyOffersAction(offerId));
+      dispatch(fetchComments(offerId));
+    }
+  }, [offerId, dispatch, currentOffer?.id]);
+
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, NEAR_PLACES_MAX_LENGTH);
+
+  const comments = useAppSelector((state) => state.comments);
+  const isLoading = useAppSelector((state) => state.isLoading);
+
+  const favoriteOffersCount = offers.filter((offer) => (offer.isFavorite)).length;
+  if (isLoading) {
+    return <Spinner />; // Пока идет загрузка, не показываем 404
+  }
   if (!currentOffer) {
     return <NotFoundPage />;
   }
-  const favoriteOffersCount = offers.filter((offer) => (offer.isFavorite)).length;
-  const nearOffers = offers.filter((el) => (el.id !== offerId)).slice(0, NEAR_PLACES_MAX_LENGTH);
   const {
     // id,
     bedrooms,
@@ -108,7 +124,7 @@ function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPagePro
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className={`offer__avatar-wrapper offer__avatar-wrapper${host.isPro && '--pro'} user__avatar-wrapper`}>
+                  <div className={`offer__avatar-wrapper offer__avatar-wrapper${host.isPro ? '--pro' : ''} user__avatar-wrapper`}>
                     <img
                       className="offer__avatar user__avatar"
                       src={host.avatarUrl}
@@ -132,16 +148,20 @@ function OfferPage({ isSignedIn, offers, currentOffers, comments }: offerPagePro
               </section>
             </div>
           </div>
-          <Map className="offer__map map" offers={[...nearOffers, currentOffer]} />
+          <Map className="offer__map map" offers={[...nearbyOffers, currentOffer]} />
         </section>
         <div className="container">
           <section className="near-places places">
-            <h2 className="near-places__title">
-              Other places in the neighbourhood
-            </h2>
-            <div className="near-places__list places__list">
-              <OffersList offers={nearOffers} page={CitiesCardClass.NEAR_PLACES} />
-            </div>
+            {nearbyOffers.length > 0 ?
+              <>
+                <h2 className="near-places__title">
+                  Other places in the neighbourhood
+                </h2>
+                <div className="near-places__list places__list">
+                  <OffersList offers={nearbyOffers} page={CitiesCardClass.NEAR_PLACES} />
+                </div>
+              </> : ''}
+
           </section>
         </div>
       </main>

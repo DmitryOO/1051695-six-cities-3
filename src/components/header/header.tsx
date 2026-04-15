@@ -5,6 +5,7 @@ import { useAppSelector } from '../../hooks';
 import { State } from '../../store';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
+import { memo } from 'react';
 
 
 type headerProps = {
@@ -13,11 +14,11 @@ type headerProps = {
   isLoginPage?: boolean;
 }
 
-
-function Header({ isSignedIn, isLoginPage = false, favoriteOffersCount }: headerProps): JSX.Element {
+const HeaderComponent = ({ isSignedIn, isLoginPage = false, favoriteOffersCount }: headerProps): JSX.Element => {
   const dispatch = useAppDispatch();
-  const userEmail = useAppSelector((state: State) => state.user.email) || '';
-  const userAvatarUrl = useAppSelector((state: State) => state.user.avatarUrl) || '';
+  const user = useAppSelector((state: State) => state.user);
+  const userEmail = user?.email || '';
+  const userAvatarUrl = user?.avatarUrl || '';
   return (
     <header className="header">
       <div className="container">
@@ -74,6 +75,8 @@ function Header({ isSignedIn, isLoginPage = false, favoriteOffersCount }: header
       </div>
     </header >
   );
-}
+};
+
+const Header = memo(HeaderComponent);
 
 export default Header;
