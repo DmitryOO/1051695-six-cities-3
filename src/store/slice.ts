@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchComments, fetchOffersAction, checkAuthAction, loginAction, logoutAction, postReviewAction } from '../api-actions';
-import { cities, AuthorizationStatus } from '../../consts';
-import { currentOfferType } from '../../pages/offer-page/current-offer-type';
-import { mainOfferType } from '../../pages/main-page/main-offer-type';
-import { commentsType } from '../../pages/offer-page/comments-type';
+import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchComments, fetchOffersAction, checkAuthAction, loginAction, logoutAction, postReviewAction, userData } from './api-actions';
+import { cities, AuthorizationStatus } from '../consts';
+import { currentOfferType } from '../pages/offer-page/current-offer-type';
+import { mainOfferType } from '../pages/main-page/main-offer-type';
+import { commentsType } from '../pages/offer-page/comments-type';
 import { Nullable } from 'vitest';
-import { userData } from '../api-actions';
 import { PayloadAction } from '@reduxjs/toolkit';
 type InitialStateType = {
   user: userData;
@@ -35,7 +34,7 @@ const initialState: InitialStateType = {
   comments: []
 };
 
-export const offersSlice = createSlice({
+export const Slice = createSlice({
   name: 'offer',
   initialState,
   reducers: {
@@ -103,4 +102,4 @@ export const offersSlice = createSlice({
   },
 });
 
-export const { changeCity, setError } = offersSlice.actions;
+export const { changeCity, setError } = Slice.actions;

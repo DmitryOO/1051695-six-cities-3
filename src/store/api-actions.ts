@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../store/index';
 import { AxiosInstance } from 'axios';
-import { setError } from '../store/offer-slice/offer-slice';
+import { setError } from './slice';
 import { APIRoute, TIMEOUT_ERROR } from '../consts';
 import { mainOfferType } from '../pages/main-page/main-offer-type';
 import { dropToken, saveToken } from '../services/token';

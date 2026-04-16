@@ -4,7 +4,7 @@ import CitiesContainer from '../../components/cities-container/cities-container'
 import MainEmpty from '../../components/main-empty/main-empty';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { State } from '../../store/index';
-import { changeCity } from '../../store/offer-slice/offer-slice';
+import { changeCity } from '../../store/slice';
 
 type mainPageProps = {
   isSignedIn: string;

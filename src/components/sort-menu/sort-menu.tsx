@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useBoolean } from '../../hooks/boolean';
 import classNames from 'classnames';
 import { SORT_OPTIONS, SortOption } from '../../consts';
+import { memo } from 'react';
 
 type SortMenuProps = {
   current: SortOption;
   setter: (option: SortOption) => void;
 };
 
-function SortMenu({ current, setter }: SortMenuProps): JSX.Element {
+const SortMenuComponent = ({ current, setter }: SortMenuProps): JSX.Element => {
   const { isOn, off, toggle } = useBoolean(false);
 
   useEffect(() => {
@@ -54,6 +55,7 @@ function SortMenu({ current, setter }: SortMenuProps): JSX.Element {
         ))}
       </ul>
     </form>);
-}
+};
+const SortMenu = memo(SortMenuComponent);
 
 export default SortMenu;

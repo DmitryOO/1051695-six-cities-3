@@ -1,6 +1,7 @@
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
 import { AppRoute, CitiesCardClass } from '../../consts';
 import { Link } from 'react-router-dom';
+import { memo } from 'react';
 
 type citiesCardProps = {
   offer: mainOfferType;
@@ -11,7 +12,7 @@ type citiesCardProps = {
   infoClass?: string;
 }
 
-function CitiesCard({ offer, handleHover = () => { }, page = CitiesCardClass.CITIES, imgWidth = 260, imgHeight = 200, infoClass = '' }: citiesCardProps): JSX.Element {
+const CitiesCardComponent = ({ offer, handleHover = () => { }, page = CitiesCardClass.CITIES, imgWidth = 260, imgHeight = 200, infoClass = '' }: citiesCardProps): JSX.Element => {
   const { price, title, type, isPremium, isFavorite, previewImage, rating } = offer;
 
   const handleMouseOn = () => {
@@ -74,6 +75,7 @@ function CitiesCard({ offer, handleHover = () => { }, page = CitiesCardClass.CIT
       </div>
     </article>
   );
-}
+};
+const CitiesCard = memo(CitiesCardComponent);
 
 export default CitiesCard;
