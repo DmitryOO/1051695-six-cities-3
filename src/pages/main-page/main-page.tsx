@@ -5,6 +5,8 @@ import MainEmpty from '../../components/main-empty/main-empty';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { State } from '../../store/index';
 import { changeCity } from '../../store/slice';
+import ErrorMessage from '../../components/error-message/error-message';
+
 
 type mainPageProps = {
   isSignedIn: string;
@@ -17,6 +19,7 @@ function MainPage({ isSignedIn }: mainPageProps): JSX.Element {
   const cityOffers = offers?.filter((offer) => (offer.city.name === currentCity));
   const emptyClass = cityOffers.length === 0 ? ' page__main--index-empty' : '';
   const favoriteOffersCount = offers.filter((offer) => (offer.isFavorite)).length;
+  const error = useAppSelector((state: State) => state.error);
   return (
     <div className='page page--gray page--main'>
       <Header isSignedIn={isSignedIn} favoriteOffersCount={favoriteOffersCount} />
@@ -28,6 +31,7 @@ function MainPage({ isSignedIn }: mainPageProps): JSX.Element {
         {cityOffers.length > 0
           ? <CitiesContainer offers={cityOffers} currentCity={currentCity} />
           : <MainEmpty currentCity={currentCity} />}
+        {error ? <ErrorMessage error={error} /> : ''}
       </main>
     </div>
   );
