@@ -37,22 +37,19 @@ function OfferPage({ isSignedIn, offers }: offerPageProps) {
 
   const favoriteOffersCount = offers.filter((offer) => (offer.isFavorite)).length;
   if (isLoading) {
-    return <Spinner />; // Пока идет загрузка, не показываем 404
+    return <Spinner />;
   }
   if (!currentOffer) {
     return <NotFoundPage />;
   }
   const {
-    // id,
     bedrooms,
-    // city,
     description,
     goods,
     host,
     images,
     isFavorite,
     isPremium,
-    // location,
     maxAdults,
     price,
     rating,

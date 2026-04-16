@@ -8,6 +8,7 @@ import { setError } from '../../store/slice';
 import { clearErrorAction } from '../../store/api-actions';
 import { State } from '../../store';
 import { useAppSelector } from '../../hooks';
+import ErrorMessage from '../error-message/error-message';
 type changeHandlerType = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
 function Form(): JSX.Element {
@@ -97,7 +98,7 @@ function Form(): JSX.Element {
           }
         > {isSending ? 'Loading' : 'Submit'}
         </button>
-        {error ? error : ''}
+        {error ? <ErrorMessage error={error}/> : ''}
       </div>
     </form>);
 }
