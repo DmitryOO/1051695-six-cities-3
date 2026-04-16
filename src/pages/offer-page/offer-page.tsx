@@ -57,13 +57,9 @@ function OfferPage({ isSignedIn }: offerPageProps) {
   } = currentOffer;
 
   const handleBookmarkClick = () => {
-    // Если не авторизован — ничего не делаем (или редиректим на Login)
     if (isSignedIn !== AuthorizationStatus.Auth) {
       return;
     }
-
-    // Инвертируем текущий статус: если true (лайкнуто), шлем 0, иначе 1
-
     dispatch(toggleFavoritesAction({
       id: offerId,
       status: isFavorite ? 0 : 1

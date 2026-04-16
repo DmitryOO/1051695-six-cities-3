@@ -48,8 +48,6 @@ const checkAuthAction = createAsyncThunk<userData, undefined, { extra: AxiosInst
   }
 );
 
-
-
 const clearErrorAction = createAsyncThunk<
   void,
   undefined,
