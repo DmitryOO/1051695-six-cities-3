@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, memo } from 'react';
 import { useParams } from 'react-router-dom';
 import leaflet from 'leaflet';
 import { UrlMarker } from '../../consts';
@@ -14,7 +14,7 @@ type MapType = {
   selectedCardId?: Nullable<string>;
 }
 
-function Map({ className, offers, selectedCardId }: MapType): JSX.Element {
+const MapComponent = ({ className, offers, selectedCardId }: MapType): JSX.Element => {
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
@@ -61,6 +61,8 @@ function Map({ className, offers, selectedCardId }: MapType): JSX.Element {
     >
     </section>
   );
-}
+};
+
+const Map = memo(MapComponent);
 
 export default Map;

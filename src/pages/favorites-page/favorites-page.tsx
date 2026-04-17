@@ -3,33 +3,17 @@ import Header from '../../components/header/header';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import CitiesCard from '../../components/cities-card/cities-card';
 import { CitiesCardClass } from '../../consts';
-// import { fetchFavoritesAction } from '../../store/api-actions';
-
-
 import { useAppSelector } from '../../hooks';
-// import { useEffect } from 'react';
-// import { AuthorizationStatus } from '../../consts';
 
 type favoritePageProps = {
   isSignedIn: string;
 }
 
 function FavoritesPage({ isSignedIn }: favoritePageProps): JSX.Element {
-  // const dispatch = useAppDispatch();
-  // const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
-  // useEffect(() => {
-  //   if (authorizationStatus === AuthorizationStatus.Auth) {
-  //     dispatch(fetchFavoritesAction());
-  //   }
-  // }, [dispatch, authorizationStatus]);
   const favorites = useAppSelector((state) => state.favorites);
-
-  // console.log(favorites);
-
-
   const uniqueCities = Array.from(new Set(favorites.map((offer) => offer.city.name)));
   const emptyMainClass = uniqueCities.length > 0 ? ' page__main--favorites-empty' : '';
+
   return (
     <div className="page">
       <Header isSignedIn={isSignedIn} />

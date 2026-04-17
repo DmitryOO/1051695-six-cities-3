@@ -1,7 +1,9 @@
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
-import { AppRoute, CitiesCardClass } from '../../consts';
-import { Link } from 'react-router-dom';
+import { AppRoute, CitiesCardClass, AuthorizationStatus } from '../../consts';
+import { Link, useNavigate } from 'react-router-dom';
 import { memo } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { toggleFavoritesAction } from '../../store/api-actions';
 
 type citiesCardProps = {
   offer: mainOfferType;
@@ -13,13 +15,27 @@ type citiesCardProps = {
 }
 
 const CitiesCardComponent = ({ offer, handleHover = () => { }, page = CitiesCardClass.CITIES, imgWidth = 260, imgHeight = 200, infoClass = '' }: citiesCardProps): JSX.Element => {
-  const { price, title, type, isPremium, isFavorite, previewImage, rating } = offer;
+  const { id, price, title, type, isPremium, isFavorite, previewImage, rating } = offer;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const handleMouseOn = () => {
-    handleHover(offer.id);
+    handleHover(id);
   };
   const handleMouseOff = () => {
     handleHover();
+  };
+  const handleBookmarkClick = () => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    dispatch(toggleFavoritesAction({
+      id,
+      status: isFavorite ? 0 : 1
+    }));
   };
 
 
@@ -30,7 +46,7 @@ const CitiesCardComponent = ({ offer, handleHover = () => { }, page = CitiesCard
           <span>Premium</span>
         </div>}
       <div className={`${page}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`..${AppRoute.Offer}/${offer.id}`}>
+        <Link to={`..${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -47,6 +63,7 @@ const CitiesCardComponent = ({ offer, handleHover = () => { }, page = CitiesCard
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
+            onClick={handleBookmarkClick}
             className={`place-card__bookmark-button  button ${isFavorite && 'place-card__bookmark-button--active'}`}
             type="button"
           >
@@ -67,7 +84,7 @@ const CitiesCardComponent = ({ offer, handleHover = () => { }, page = CitiesCard
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`..${AppRoute.Offer}/${offer.id}`}>
+          <Link to={`..${AppRoute.Offer}/${id}`}>
             {title}
           </Link>
         </h2>

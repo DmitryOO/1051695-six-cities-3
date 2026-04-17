@@ -97,6 +97,7 @@ export const Slice = createSlice({
       .addCase(logoutAction.fulfilled, (state) => {
         state.user = {};
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.favorites = [];
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersDataLoading = false;
@@ -109,6 +110,14 @@ export const Slice = createSlice({
         const updatedOffer = action.payload;
         if (state.currentOffer && state.currentOffer.id === updatedOffer.id) {
           state.currentOffer.isFavorite = updatedOffer.isFavorite;
+        }
+        const offerIndex = state.offers.findIndex((offer) => offer.id === updatedOffer.id);
+        if (offerIndex !== -1) {
+          state.offers[offerIndex].isFavorite = updatedOffer.isFavorite;
+        }
+        const nearbyIndex = state.nearbyOffers.findIndex((offer) => offer.id === updatedOffer.id);
+        if (nearbyIndex !== -1) {
+          state.nearbyOffers[nearbyIndex].isFavorite = updatedOffer.isFavorite;
         }
 
       });
