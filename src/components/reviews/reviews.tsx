@@ -1,10 +1,11 @@
 import Review from '../review/review';
 import { commentType } from '../review/review';
+import { memo } from 'react';
 import dayjs from 'dayjs';
 
 
 type reviewsProps = { comments: commentType[] };
-function Reviews({ comments }: reviewsProps) {
+const ReviewsComponent = ({ comments }: reviewsProps) => {
   const sortedSlicedComments = comments.toSorted((comment1,comment2)=>dayjs(comment2.date).diff(dayjs(comment1.date))).slice(0,10);
   return (
     <section>
@@ -17,6 +18,6 @@ function Reviews({ comments }: reviewsProps) {
         </ul>}
     </section>
   );
-}
-
+};
+const Reviews = memo(ReviewsComponent);
 export default Reviews;
