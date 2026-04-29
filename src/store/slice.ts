@@ -4,11 +4,10 @@ import { cities, AuthorizationStatus } from '../consts';
 import { currentOfferType } from '../pages/offer-page/current-offer-type';
 import { mainOfferType } from '../pages/main-page/main-offer-type';
 import { commentsType } from '../pages/offer-page/comments-type';
-import { Nullable } from 'vitest';
 import { PayloadAction } from '@reduxjs/toolkit';
 type InitialStateType = {
   user: userData;
-  city: Nullable<string>;
+  city: string | null;
   offers: mainOfferType[];
   authorizationStatus: string;
   error: string | null;
@@ -17,7 +16,7 @@ type InitialStateType = {
   isOffersDataLoading: boolean;
   isFavoritesDataLoading: boolean;
   nearbyOffers: mainOfferType[];
-  currentOffer: Nullable<currentOfferType>;
+  currentOffer: currentOfferType | null;
   comments: commentsType;
   favorites: mainOfferType[];
 };

@@ -5,13 +5,12 @@ import { UrlMarker } from '../../consts';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
-import { Nullable } from 'vitest';
 import L from 'leaflet';
 
 type MapType = {
   className: string;
   offers: mainOfferType[];
-  selectedCardId?: Nullable<string>;
+  selectedCardId?: string | null;
 }
 
 const MapComponent = ({ className, offers, selectedCardId }: MapType): JSX.Element => {
@@ -33,7 +32,7 @@ const MapComponent = ({ className, offers, selectedCardId }: MapType): JSX.Eleme
   const activeIcon = selectedCardId || offerId;
   useEffect(() => {
     if (map) {
-      map.eachLayer((layer) => {
+      map.eachLayer((layer:unknown) => {
         if (layer instanceof L.Marker) {
           map.removeLayer(layer);
         }
