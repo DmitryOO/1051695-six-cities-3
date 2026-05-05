@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import leaflet from 'leaflet';
 import { locationType } from '../pages/main-page/main-offer-type';
-import { Nullable } from 'vitest';
 type useMapType = {
   mapRef: React.MutableRefObject<null>;
   city: {
@@ -11,7 +10,7 @@ type useMapType = {
 }
 
 function useMap({ mapRef, city }: useMapType) {
-  const [map, setMap] = useState<Nullable<leaflet.Map>>(null);
+  const [map, setMap] = useState<leaflet.Map | null>(null);
   const isRenderedRef = useRef(false);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
-import { Nullable } from 'vitest';
+
 
 type mainEmptyType = {
-  currentCity: Nullable<string>;
+  currentCity: string | null;
 }
 
 function MainEmpty({ currentCity }: mainEmptyType): JSX.Element {

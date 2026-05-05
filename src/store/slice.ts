@@ -5,7 +5,7 @@ import { currentOfferType } from '../pages/offer-page/current-offer-type';
 import { mainOfferType } from '../pages/main-page/main-offer-type';
 import { commentsType } from '../pages/offer-page/comments-type';
 import { PayloadAction } from '@reduxjs/toolkit';
-type InitialStateType = {
+export type InitialStateType = {
   user: userData;
   city: string | null;
   offers: mainOfferType[];

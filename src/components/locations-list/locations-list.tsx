@@ -1,9 +1,8 @@
 import { cities } from '../../consts';
-import { Nullable } from 'vitest';
 import { memo } from 'react';
 
 type LocationsListProps = {
-  currentCity: Nullable<string>;
+  currentCity: string | null;
   onCityClick: (city: string) => void;
 };
 
