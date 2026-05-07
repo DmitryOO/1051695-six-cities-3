@@ -10,12 +10,12 @@ import { commentsType } from '../pages/offer-page/comments-type';
 import { reviewType } from '../pages/offer-page/comments-type';
 
 
-type authData = {
+export type authData = {
   email: string;
   password: string;
 }
 
-type FavoriteStatusData = {
+export type FavoriteStatusData = {
   id: string;
   status: number;
 }

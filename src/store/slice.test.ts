@@ -3,6 +3,7 @@ import { changeCity, setError, Slice } from './slice';
 import { cities } from '../consts';
 import { AuthorizationStatus } from '../consts';
 import { InitialStateType } from './slice';
+import { fetchOffersAction, logoutAction } from './api-actions';
 describe('Slice', () => {
   const expectedState: InitialStateType = {
     user: {},
@@ -45,5 +46,20 @@ describe('Slice', () => {
     const result = Slice.reducer(undefined, setError('err'));
 
     expect(result.error).toBe('err');
+  });
+
+  it ('should change isOffersDataLoading pending', ()=> {
+    const newState = {...expectedState, isOffersDataLoading:true};
+    const result = Slice.reducer(undefined, fetchOffersAction.pending);
+
+    expect(result).toEqual(newState);
+  });
+
+  it('should logout action fulfilled', ()=>{
+    const newState = {...expectedState, user:{}, authorizationStatus:AuthorizationStatus.NoAuth, favorites:[]};
+    const result = Slice.reducer(expectedState, logoutAction.fulfilled);
+
+    expect(result).toEqual(newState);
+
   });
 });
