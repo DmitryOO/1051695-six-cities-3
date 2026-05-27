@@ -1,7 +1,6 @@
 
 import Map from '../../components/map/map';
 import { useState, useCallback } from 'react';
-import { Nullable } from 'vitest';
 import { mainOfferType } from '../../pages/main-page/main-offer-type';
 import OffersList from '../../components/offers-list/offers-list';
 import SortMenu from '../../components/sort-menu/sort-menu';
@@ -9,11 +8,11 @@ import { SortOption } from '../../consts';
 
 type CitiesContainer = {
   offers: mainOfferType[];
-  currentCity: Nullable<string>;
+  currentCity: string | null;
 }
 
 function CitiesContainer({ offers, currentCity }: CitiesContainer): JSX.Element {
-  const [selectedCardId, setSelectedCardId] = useState<Nullable<string>>(null);
+  const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const handleHover = useCallback((offer?: string) => {
     setSelectedCardId(offer || null);
   }, []);
